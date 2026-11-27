@@ -2,8 +2,6 @@
 
 Dashboard web untuk melihat **cuaca** dan **jadwal sholat** berdasarkan kota yang dicari. Dibuat dengan React dan memakai API publik tanpa API key.
 
-> Status: dalam pengembangan (proyek belajar, dikerjakan bertahap).
-
 ## Fitur
 
 - Pencarian kota dengan hasil dari geocoding
@@ -43,25 +41,9 @@ npm run dev
 
 Buka `http://localhost:5173` di browser.
 
-## Struktur Folder
-
-```
-src/
-├── components/
-│   ├── SearchBar.jsx      # input pencarian kota
-│   ├── WeatherCard.jsx    # tampilan data cuaca
-│   └── PrayerTimes.jsx    # tampilan jadwal sholat
-├── services/
-│   └── api.js             # fungsi pemanggil API
-├── App.jsx
-└── main.jsx
-```
-
-Kode pemanggil API sengaja dipisah ke `services/` agar tampilan dan logika data tidak bercampur.
-
 ## Roadmap
 
-- [ ] Tahap 1: Setup project (Vite + React) dan struktur folder
+- [x] Tahap 1: Setup project (Vite + React) dan struktur folder
 - [ ] Tahap 2: Mencoba API publik dan memahami bentuk datanya
 - [ ] Tahap 3: Pencarian kota (geocoding)
 - [ ] Tahap 4: Menampilkan cuaca
@@ -73,7 +55,3 @@ Kode pemanggil API sengaja dipisah ke `services/` agar tampilan dan logika data 
 
 - Data cuaca dan geocoding oleh [Open-Meteo](https://open-meteo.com/)
 - Jadwal sholat oleh [Aladhan](https://aladhan.com/)
-
-## Lisensi
-
-Dirilis di bawah lisensi MIT.
