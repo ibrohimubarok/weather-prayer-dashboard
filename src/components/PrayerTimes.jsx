@@ -10,13 +10,14 @@ function PrayerTimes({ prayer }) {
   const { timings, date } = prayer
 
   return (
-    <div>
+    <div className="card">
       <h2>Jadwal Sholat</h2>
-      <p>{date.readable}</p>
-      <ul>
+      <p className="muted">{date.readable}</p>
+      <ul className="prayer-list">
         {PRAYERS.map((item) => (
           <li key={item.key}>
-            {item.label}: {timings[item.key]}
+            <span>{item.label}</span>
+            <strong>{timings[item.key]}</strong>
           </li>
         ))}
       </ul>
