@@ -1,3 +1,4 @@
+import './App.css'
 import { useState, useEffect } from 'react'
 import SearchBar from './components/SearchBar'
 import WeatherCard from './components/WeatherCard'
@@ -5,13 +6,32 @@ import PrayerTimes from './components/PrayerTimes'
 import { searchCity, getWeather, getPrayerTimes } from './services/api'
 import { formatDateForAladhan } from './utils/formatDate'
 
+function getInitialTheme() {
+  const saved = localStorage.getItem('theme')
+  if (saved === 'light' || saved === 'dark') return saved
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light'
+}
+
 function App() {
+  const [theme, setTheme] = useState(getInitialTheme)
   const [results, setResults] = useState([])
   const [selectedCity, setSelectedCity] = useState(null)
   const [weather, setWeather] = useState(null)
   const [prayer, setPrayer] = useState(null)
 
-  async function handleSearch(name) {
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('theme', theme)
+  }, [theme])
+
+  function toggleTheme() {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
+  }
+
+    async function handleSearch(name) {
     try {
       const cities = await searchCity(name)
       setResults(cities)
@@ -65,12 +85,17 @@ function App() {
   }, [selectedCity])
 
   return (
-    <div>
-      <h1>Weather & Prayer Dashboard</h1>
+    <div className="app">
+      <header className="header">
+        <h1>Weather & Prayer Dashboard</h1>
+        <button className="theme-toggle" onClick={toggleTheme}>
+          {theme === 'dark' ? '☀️ Terang' : '🌙 Gelap'}
+        </button>
+      </header>
 
       <SearchBar onSearch={handleSearch} />
 
-      <ul>
+      <ul className="results">
         {results.map((city) => (
           <li key={city.id}>
             <button onClick={() => handleSelect(city)}>
@@ -80,11 +105,12 @@ function App() {
         ))}
       </ul>
 
-      {selectedCity && weather && (
-        <WeatherCard city={selectedCity} weather={weather} />
-      )}
-
-      {selectedCity && prayer && <PrayerTimes prayer={prayer} />}
+      <div className="cards">
+        {selectedCity && weather && (
+          <WeatherCard city={selectedCity} weather={weather} />
+        )}
+        {selectedCity && prayer && <PrayerTimes prayer={prayer} />}
+      </div>
     </div>
   )
 }
