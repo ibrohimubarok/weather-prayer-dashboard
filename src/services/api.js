@@ -26,3 +26,19 @@ export async function getWeather(latitude, longitude) {
 
   return await response.json()
 }
+
+const PRAYER_URL = 'https://api.aladhan.com/v1/timings'
+
+export async function getPrayerTimes(latitude, longitude, date) {
+    const params = new URLSearchParams({
+      latitude, longitude, method: 20
+  })
+
+  const response = await fetch(`${PRAYER_URL}/${date}?${params}`)
+  if (!response.ok) {
+    throw new Error('Gagal mengambil waktu solat')
+  }
+
+  const data = await response.json()
+  return data.data ?? null
+}
