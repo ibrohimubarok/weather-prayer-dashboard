@@ -44,8 +44,8 @@ Buka `http://localhost:5173` di browser.
 ## Roadmap
 
 - [x] Tahap 1: Setup project (Vite + React) dan struktur folder
-- [ ] Tahap 2: Mencoba API publik dan memahami bentuk datanya
-- [ ] Tahap 3: Pencarian kota (geocoding)
+- [x] Tahap 2: Mencoba API publik dan memahami bentuk datanya
+- [x] Tahap 3: Pencarian kota (geocoding)
 - [ ] Tahap 4: Menampilkan cuaca
 - [ ] Tahap 5: Menampilkan jadwal sholat
 - [ ] Tahap 6: Mode gelap
