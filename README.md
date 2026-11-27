@@ -48,7 +48,7 @@ Buka `http://localhost:5173` di browser.
 - [x] Tahap 3: Pencarian kota (geocoding)
 - [x] Tahap 4: Menampilkan cuaca
 - [x] Tahap 5: Menampilkan jadwal sholat
-- [ ] Tahap 6: Mode gelap
+- [x] Tahap 6: Mode gelap
 - [ ] Tahap 7: Loading, error handling, dan penyimpanan kota terakhir
 
 ## Sumber Data
