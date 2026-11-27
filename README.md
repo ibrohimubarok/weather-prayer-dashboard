@@ -47,7 +47,7 @@ Buka `http://localhost:5173` di browser.
 - [x] Tahap 2: Mencoba API publik dan memahami bentuk datanya
 - [x] Tahap 3: Pencarian kota (geocoding)
 - [x] Tahap 4: Menampilkan cuaca
-- [ ] Tahap 5: Menampilkan jadwal sholat
+- [x] Tahap 5: Menampilkan jadwal sholat
 - [ ] Tahap 6: Mode gelap
 - [ ] Tahap 7: Loading, error handling, dan penyimpanan kota terakhir
 
