@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
 import SearchBar from './components/SearchBar'
 import WeatherCard from './components/WeatherCard'
-import { searchCity, getWeather } from './services/api'
+import PrayerTimes from './components/PrayerTimes'
+import { searchCity, getWeather, getPrayerTimes } from './services/api'
+import { formatDateForAladhan } from './utils/formatDate'
 
 function App() {
   const [results, setResults] = useState([])
   const [selectedCity, setSelectedCity] = useState(null)
   const [weather, setWeather] = useState(null)
+  const [prayer, setPrayer] = useState(null)
 
   async function handleSearch(name) {
     try {
@@ -19,6 +22,7 @@ function App() {
 
   function handleSelect(city) {
     setWeather(null)
+    setPrayer(null)
     setSelectedCity(city)
     setResults([])
   }
@@ -41,6 +45,25 @@ function App() {
     loadWeather()
   }, [selectedCity])
 
+  useEffect(() => {
+    if (!selectedCity) return
+
+    async function loadPrayerTimes() {
+      try {
+        const data = await getPrayerTimes(
+          selectedCity.latitude,
+          selectedCity.longitude,
+          formatDateForAladhan()
+        )
+        setPrayer(data)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    loadPrayerTimes()
+  }, [selectedCity])
+
   return (
     <div>
       <h1>Weather & Prayer Dashboard</h1>
@@ -60,6 +83,8 @@ function App() {
       {selectedCity && weather && (
         <WeatherCard city={selectedCity} weather={weather} />
       )}
+
+      {selectedCity && prayer && <PrayerTimes prayer={prayer} />}
     </div>
   )
 }
