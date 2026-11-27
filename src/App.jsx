@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SearchBar from './components/SearchBar'
-import { searchCity } from './services/api'
+import WeatherCard from './components/WeatherCard'
+import { searchCity, getWeather } from './services/api'
 
 function App() {
   const [results, setResults] = useState([])
   const [selectedCity, setSelectedCity] = useState(null)
+  const [weather, setWeather] = useState(null)
 
   async function handleSearch(name) {
     try {
@@ -16,9 +18,28 @@ function App() {
   }
 
   function handleSelect(city) {
+    setWeather(null)
     setSelectedCity(city)
     setResults([])
   }
+
+  useEffect(() => {
+    if (!selectedCity) return
+
+    async function loadWeather() {
+      try {
+        const data = await getWeather(
+          selectedCity.latitude,
+          selectedCity.longitude
+        )
+        setWeather(data)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    loadWeather()
+  }, [selectedCity])
 
   return (
     <div>
@@ -36,11 +57,8 @@ function App() {
         ))}
       </ul>
 
-      {selectedCity && (
-        <p>
-          Kota terpilih: {selectedCity.name} ({selectedCity.latitude},{' '}
-          {selectedCity.longitude})
-        </p>
+      {selectedCity && weather && (
+        <WeatherCard city={selectedCity} weather={weather} />
       )}
     </div>
   )
